@@ -4,3 +4,22 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+:root {
+    --white: #f3f3f3;
+}
+body {
+    color: var(--white);
+}
+
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active {
+    -webkit-box-shadow: 0 0 0 30px #27272f inset !important;
+    border: 0px solid transparent;
+}
+
+input:-webkit-autofill {
+    -webkit-text-fill-color: #f3f3f3 !important;
+}
