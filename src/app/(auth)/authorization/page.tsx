@@ -12,5 +12,6 @@ export default function Page() {
         },
     ];
 
-    return <AuthForm inputArray={inputArray} />;
+    return <></>;
+    // return <AuthForm inputArray={inputArray} />;
 }

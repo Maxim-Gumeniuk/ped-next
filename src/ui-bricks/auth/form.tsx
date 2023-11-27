@@ -1,27 +1,27 @@
 "use client";
 
-import Link from "next/dist/client/link";
-import { FC, memo, useRef } from "react";
+import { FC, Fragment, memo } from "react";
 
-interface IinputArray {
-    type: string;
-    placeholder: string;
-}
+import { IinputArray } from "@/types/auth/registration";
+import Link from "next/dist/client/link";
+
+const tabArray = [
+    {
+        name: "registration",
+    },
+    {
+        name: "authorization",
+    },
+];
 
 type Props = {
     inputArray: Array<IinputArray>;
+    onSubmit: () => void;
+    isAuth?: boolean;
 };
 
-export const AuthForm: FC<Props> = memo(({ inputArray }) => {
-    const tabArray = [
-        {
-            name: "registration",
-        },
-        {
-            name: "authorization",
-        },
-    ];
-    return (
+export const AuthForm: FC<Props> = memo(
+    ({ inputArray, onSubmit, isAuth = false }) => (
         <div className="flex flex-col justify-center items-center min-h-screen gap-y-2.5">
             <div className="w-1/3">
                 <div className="flex flex-col gap-y-5">
@@ -40,29 +40,55 @@ export const AuthForm: FC<Props> = memo(({ inputArray }) => {
                     <div>
                         <div className="flex flex-col gap-y-5">
                             <div className="flex flex-col gap-y-4">
-                                {inputArray.map(({ type, placeholder }) => (
-                                    <input
-                                        type={type}
-                                        className="rounded-lg bg-grey p-4 placeholder-uppercase"
-                                        placeholder={placeholder}
-                                        key={type}
-                                    />
-                                ))}
+                                {inputArray.map(
+                                    ({
+                                        type,
+                                        placeholder,
+                                        value,
+                                        change,
+                                        errors,
+                                        touched,
+                                    }) => {
+                                        return (
+                                            <Fragment key={type}>
+                                                <input
+                                                    id={type}
+                                                    name={type}
+                                                    type={type}
+                                                    className="rounded-lg bg-grey p-4 placeholder-uppercase"
+                                                    placeholder={placeholder}
+                                                    value={value}
+                                                    onChange={change}
+                                                />
+                                                {touched && errors && (
+                                                    <span className="text-red italic">
+                                                        {errors}
+                                                    </span>
+                                                )}
+                                            </Fragment>
+                                        );
+                                    }
+                                )}
                             </div>
-                            <div className="text-right pr-3 cursor-pointer">
-                                <span className="text-green">
-                                    forget a password ?
-                                </span>
-                            </div>
+                            {isAuth && (
+                                <div className="text-right pr-3 cursor-pointer">
+                                    <span className="text-green">
+                                        forget a password ?
+                                    </span>
+                                </div>
+                            )}
                         </div>
                     </div>
-                    <div className="bg-green p-4 rounded-lg flex justify-center items-cente uppercase cursor-pointer">
+                    <div
+                        className="bg-green p-4 rounded-lg flex justify-center items-cente uppercase cursor-pointer"
+                        onClick={onSubmit}
+                    >
                         <div>registration</div>
                     </div>
                 </div>
             </div>
         </div>
-    );
-});
+    )
+);
 
 AuthForm.displayName = "authForm";
