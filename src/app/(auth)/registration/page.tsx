@@ -1,12 +1,14 @@
 "use client";
 
-import { useMemo } from "react";
+import { useMemo, useState } from "react";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 
 import { authApi } from "@/api/auth";
 import { RegistrInitialValue } from "@/types/auth/registration/registration";
 import { AuthForm } from "@/ui-bricks/auth/form";
+import { useRouter } from "next/navigation";
+import { ENDPOINTS } from "@/types/api/endpoints";
 
 const initialValues: RegistrInitialValue = {
     name: "",
@@ -24,18 +26,26 @@ const validationSchema = Yup.object({
 });
 
 export default function Page() {
+    const [isLoading, setLoading] = useState<boolean>(false);
+    const router = useRouter();
+
     const formik = useFormik({
         initialValues,
         validationSchema,
         onSubmit: async (values: RegistrInitialValue) => {
             try {
+                setLoading(true);
                 await authApi.registration({
                     name: values.name,
                     email: values.email,
                     password: values.password,
                 });
+
+                router.push(ENDPOINTS.ACTIVATION);
             } catch (e) {
                 console.log(e);
+            } finally {
+                setLoading(false);
             }
         },
     });
@@ -81,5 +91,11 @@ export default function Page() {
         values.name,
         values.password,
     ]);
-    return <AuthForm inputArray={inputArray} onSubmit={formik.submitForm} />;
+    return (
+        <AuthForm
+            inputArray={inputArray}
+            onSubmit={formik.submitForm}
+            isLoading={isLoading}
+        />
+    );
 }
