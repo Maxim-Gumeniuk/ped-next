@@ -1,9 +1,10 @@
+import { AUTHLINKS } from "@/types/auth/links";
 import Link from "next/link";
 
 export default function Page() {
     return (
         <Link
-            href="https://t.me/ActivatioNPET_bot"
+            href={AUTHLINKS.ACTIVATIONBOT}
             className="flex justify-center items-center min-h-screen uppercase text-lg"
         >
             Click to activate your account
