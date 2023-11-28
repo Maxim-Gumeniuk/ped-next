@@ -1,4 +1,4 @@
-import { AUTHLINKS } from "@/types/auth/links";
+import { AUTHLINKS } from "@/types/auth/registration/links";
 import Link from "next/link";
 
 export default function Page() {
