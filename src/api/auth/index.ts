@@ -1,7 +1,9 @@
 import { ENDPOINTS } from "@/types/api/endpoints";
+import { Icredentials } from "@/types/api/credentials";
+
 import { appFetchingInstance } from "../baseUrl"
 
-const registration = async (param: any) => {
+const registration = async (param: Icredentials) => {
     try {
         const { name, email, password } = param;
         await appFetchingInstance.post(ENDPOINTS.REGISTRATION, {
@@ -14,7 +16,6 @@ const registration = async (param: any) => {
         
     }
 }
-
 
 export const authApi = {
     registration

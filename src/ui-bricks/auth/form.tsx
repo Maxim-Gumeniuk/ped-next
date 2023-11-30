@@ -41,35 +41,23 @@ export const AuthForm: FC<Props> = memo(
                     <div>
                         <div className="flex flex-col gap-y-5">
                             <div className="flex flex-col gap-y-4">
-                                {inputArray.map(
-                                    ({
-                                        type,
-                                        placeholder,
-                                        value,
-                                        change,
-                                        errors,
-                                        touched,
-                                    }) => {
-                                        return (
-                                            <Fragment key={type}>
-                                                <input
-                                                    id={type}
-                                                    name={type}
-                                                    type={type}
-                                                    className="rounded-lg bg-grey p-4 placeholder-uppercase"
-                                                    placeholder={placeholder}
-                                                    value={value}
-                                                    onChange={change}
-                                                />
-                                                {touched && errors && (
-                                                    <span className="text-red italic">
-                                                        {errors}
-                                                    </span>
-                                                )}
-                                            </Fragment>
-                                        );
-                                    }
-                                )}
+                                {inputArray.map((input) => {
+                                    const { type, touched, errors } = input;
+                                    return (
+                                        <Fragment key={type}>
+                                            <input
+                                                id={type}
+                                                className="rounded-lg bg-grey p-4 placeholder-uppercase"
+                                                {...input}
+                                            />
+                                            {touched && errors && (
+                                                <span className="text-red italic">
+                                                    {errors}
+                                                </span>
+                                            )}
+                                        </Fragment>
+                                    );
+                                })}
                             </div>
                             {isAuth && (
                                 <div className="text-right pr-3 cursor-pointer">

@@ -50,47 +50,33 @@ export default function Page() {
         },
     });
 
-    const { values, handleChange, errors, touched } = formik;
+    const { getFieldProps, errors, touched } = formik;
 
     const inputArray = useMemo(() => {
         return [
             {
                 type: "name",
                 placeholder: "TYPE YOUR NAME",
-                value: values.name,
-                change: handleChange,
+                ...getFieldProps("name"),
                 errors: errors.name,
                 touched: touched.name,
             },
             {
                 type: "email",
                 placeholder: "EMAIL",
-                change: handleChange,
-                value: values.email,
+                ...getFieldProps("email"),
                 errors: errors.email,
                 touched: touched.email,
             },
             {
                 type: "password",
                 placeholder: "PASSWORD",
-                change: handleChange,
-                value: values.password,
+                ...getFieldProps("password"),
                 errors: errors.password,
                 touched: touched.password,
             },
         ];
-    }, [
-        errors.email,
-        errors.name,
-        errors.password,
-        handleChange,
-        touched.email,
-        touched.name,
-        touched.password,
-        values.email,
-        values.name,
-        values.password,
-    ]);
+    }, [errors, getFieldProps, touched]);
     return (
         <AuthForm
             inputArray={inputArray}

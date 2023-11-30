@@ -1,9 +1,10 @@
-import { ChangeEvent } from "react";
-
 export interface IinputArray {
-    type: string;
+    onBlur: (e: unknown ) =>  void
+    onChange: (e: React.ChangeEvent<unknown>) => void; 
     placeholder: string;
-    change: (e: ChangeEvent<any>) => void;
+    type: string;
+    name: string;
+    handleBlur?: (e: unknown) => void
     value: string;
     errors?: string;
     touched?: boolean;
