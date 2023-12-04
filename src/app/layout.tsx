@@ -1,5 +1,8 @@
 import type { Metadata } from "next";
 import "./globals.css";
+import { SnackbarProvider, useSnackbar } from "notistack";
+import { Providers } from "./providers";
+
 // const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
@@ -14,7 +17,9 @@ export default function RootLayout({
 }) {
     return (
         <html lang="en">
-            <body className="bg-blackBg text-white">{children}</body>
+            <body className="bg-blackBg text-white">
+                <Providers>{children}</Providers>
+            </body>
         </html>
     );
 }

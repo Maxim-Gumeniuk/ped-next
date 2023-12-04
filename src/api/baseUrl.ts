@@ -25,6 +25,7 @@ appFetchingInstance.interceptors.response.use(
         return response;
     },
     async (error) => {
+
         if (error.response && error.response.status === APISTATUSES.UNAUTHORIZED) {
 
         const response = await appFetchingInstance.post(ENDPOINTS.REFRESH);
