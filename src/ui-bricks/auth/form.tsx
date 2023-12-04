@@ -19,10 +19,17 @@ type Props = {
     onSubmit: () => void;
     isAuth?: boolean;
     isLoading?: boolean;
+    buttonText?: string;
 };
 
 export const AuthForm: FC<Props> = memo(
-    ({ inputArray, onSubmit, isAuth = false, isLoading = false }) => (
+    ({
+        inputArray,
+        onSubmit,
+        isAuth = false,
+        isLoading = false,
+        buttonText = "registration",
+    }) => (
         <div className="flex flex-col justify-center items-center min-h-screen gap-y-2.5">
             <div className="w-1/3">
                 <div className="flex flex-col gap-y-5">
@@ -75,7 +82,7 @@ export const AuthForm: FC<Props> = memo(
                         {isLoading ? (
                             <div>loading...</div>
                         ) : (
-                            <div>registration</div>
+                            <div>{buttonText}</div>
                         )}
                     </div>
                 </div>

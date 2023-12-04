@@ -17,6 +17,26 @@ const registration = async (param: Icredentials) => {
     }
 }
 
+const authorization = async (param: Partial<Icredentials>) => {
+    const { email, password } = param;
+
+    try {
+        const response = await appFetchingInstance.post(ENDPOINTS.AUTHORIZATION, {
+            email,
+            password
+        })
+
+        const { data } = response;
+
+        localStorage.setItem('accesToken', data.accesToken);
+
+    } catch(e) {
+        console.error(e);
+        throw new Error();
+    }
+}
+
 export const authApi = {
-    registration
+    registration,
+    authorization
 }

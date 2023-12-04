@@ -1,4 +1,6 @@
 export enum ENDPOINTS {
     REGISTRATION = '/registration',
-    ACTIVATION = '/activation'
+    ACTIVATION = '/activation',
+    AUTHORIZATION = '/login',
+    REFRESH = '/refresh'
 }
