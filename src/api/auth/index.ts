@@ -3,6 +3,7 @@ import { Icredentials } from "@/types/api/credentials";
 
 import { appFetchingInstance } from "../baseUrl"
 import { enqueueSnackbar } from "notistack";
+import { AxiosError } from "axios";
 
 const registration = async (param: Icredentials) => {
     try {
@@ -12,10 +13,12 @@ const registration = async (param: Icredentials) => {
             email,
             password
         })
-    } catch(error: any) {
-        console.log(error.response.data);
-        enqueueSnackbar(error.response.data, { variant: 'warning' });
-        throw new Error();
+    } catch(error) {
+        if (error instanceof AxiosError && error.response) {
+            enqueueSnackbar(error.response.data, { variant: 'warning' });
+            throw new Error();
+        }
+        console.log(error);
     }
 }
 
@@ -28,17 +31,19 @@ const authorization = async (param: Partial<Icredentials>) => {
             password
         })
 
-        const { data } = response;        
-
-        localStorage.setItem('accesToken', data.accesToken);
-
-    } catch(e: any) {
-        if (e.response.data.message) {
-            enqueueSnackbar(e.response.data.message, { variant: 'info' });
-        }
+        const { data } = response;    
         
-        enqueueSnackbar(e.response.data.errors.error, { variant: 'warning' });
-        throw new Error();
+        localStorage.setItem('accesToken', data.accesToken);
+        
+        return data.user;
+
+    } catch(e) {
+        if (e instanceof AxiosError && e.response) {
+            enqueueSnackbar(e.response.data.errors.error, { variant: 'warning' });
+            throw new Error();
+        }
+
+        console.log(e);
     }
 }
 

@@ -1,16 +1,14 @@
 "use client";
-import { useRouter } from "next/navigation";
+
+import { useContext } from "react";
+import { mainContext } from "./providers/main";
 
 export default function Home() {
-    const router = useRouter();
-
-    // useLayoutEffect(() => {
-    //     router.push("/authorization");
-    // }, []);
+    const context = useContext(mainContext);
 
     return (
         <h1 className="flex flex-column justify-center items-center h-screen">
-            hello my pet App
+            hello
         </h1>
     );
 }

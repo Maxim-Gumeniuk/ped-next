@@ -1,7 +1,8 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import { SnackbarProvider, useSnackbar } from "notistack";
-import { Providers } from "./providers";
+import { Providers } from "./providers/main";
+import { AuthChecker } from "./providers/authChecker";
 
 // const inter = Inter({ subsets: ["latin"] });
 
@@ -18,7 +19,9 @@ export default function RootLayout({
     return (
         <html lang="en">
             <body className="bg-blackBg text-white">
-                <Providers>{children}</Providers>
+                <Providers>
+                    <AuthChecker>{children}</AuthChecker>
+                </Providers>
             </body>
         </html>
     );
