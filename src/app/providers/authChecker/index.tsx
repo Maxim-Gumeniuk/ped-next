@@ -10,7 +10,7 @@ export const AuthChecker: FC<PropsWithChildren> = ({ children }) => {
     const router = useRouter();
 
     if (typeof window !== "undefined") {
-        context.user = localStorage.getItem("user") || null;
+        context.user = localStorage.getItem("user");
     }
 
     useLayoutEffect(() => {
