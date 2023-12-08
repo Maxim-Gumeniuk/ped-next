@@ -4,8 +4,11 @@ import { ENDPOINTS } from '@/types/api/endpoints';
 import { APISTATUSES } from '@/types/api/statuses';
 
 export const appFetchingInstance = axios.create({
-    baseURL: 'http://localhost:3210'
+    baseURL: process.env.SERVER_URL
 });
+
+console.log(process.env.BACK_BASE_URL);
+
 
 appFetchingInstance.interceptors.request.use(
     (config) => {
