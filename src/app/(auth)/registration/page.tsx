@@ -76,7 +76,15 @@ export default function Page() {
                 touched: touched.password,
             },
         ];
-    }, [errors, getFieldProps, touched]);
+    }, [
+        errors.email,
+        errors.name,
+        errors.password,
+        getFieldProps,
+        touched.email,
+        touched.name,
+        touched.password,
+    ]);
     return (
         <AuthForm
             inputArray={inputArray}

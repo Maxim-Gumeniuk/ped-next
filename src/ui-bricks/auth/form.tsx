@@ -1,5 +1,3 @@
-"use client";
-
 import { FC, Fragment, memo } from "react";
 
 import { IinputArray } from "@/types/auth/registration";
