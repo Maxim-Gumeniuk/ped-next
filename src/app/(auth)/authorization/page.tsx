@@ -23,6 +23,14 @@ export default function Page() {
     const [isLoading, setLoading] = useState<boolean>(false);
     const router = useRouter();
 
+    const [showPassword, setShowPassword] = useState(false);
+
+    const handleShowPassword = () => {
+        setShowPassword((prev) => {
+            return !prev;
+        });
+    };
+
     const formik = useFormik({
         initialValues,
         validationSchema,
@@ -59,7 +67,8 @@ export default function Page() {
                 touched: touched.email,
             },
             {
-                type: "password",
+                type: showPassword ? "text" : "password",
+                password: true,
                 placeholder: "PASSWORD",
                 ...getFieldProps("password"),
                 errors: errors.password,
@@ -70,6 +79,7 @@ export default function Page() {
         errors.email,
         errors.password,
         getFieldProps,
+        showPassword,
         touched.email,
         touched.password,
     ]);
@@ -81,6 +91,7 @@ export default function Page() {
             isLoading={isLoading}
             isAuth={true}
             buttonText="Login"
+            handleShowPassword={handleShowPassword}
         />
     );
 }

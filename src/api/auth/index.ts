@@ -42,8 +42,6 @@ const authorization = async (param: Partial<Icredentials>) => {
             enqueueSnackbar(e.response.data.errors.error, { variant: 'warning' });
             throw new Error();
         }
-
-        console.log(e);
     }
 }
 

@@ -7,9 +7,6 @@ export const appFetchingInstance = axios.create({
     baseURL: process.env.SERVER_URL
 });
 
-console.log(process.env.BACK_BASE_URL);
-
-
 appFetchingInstance.interceptors.request.use(
     (config) => {
         const token = localStorage.getItem('accessToken');

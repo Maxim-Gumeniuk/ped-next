@@ -1,22 +1,21 @@
 "use client";
 
 import { FC, PropsWithChildren, useContext, useLayoutEffect } from "react";
-import { mainContext } from "../main";
 import { useRouter } from "next/navigation";
 import { ROUTES } from "@/types/routes";
+import { isAuth } from "@/utils/isAuth";
 
 export const AuthChecker: FC<PropsWithChildren> = ({ children }) => {
-    const context = useContext(mainContext);
     const router = useRouter();
 
-    if (typeof window !== "undefined") {
-        context.user = localStorage.getItem("user");
-    }
+    const isAuthCheck = isAuth();
 
     useLayoutEffect(() => {
-        if (!context.user) {
+        if (!isAuthCheck) {
             router.push(ROUTES.AUTHORIZATION);
+
+            return;
         }
-    }, [context.user, router]);
+    }, [isAuthCheck, router]);
     return <>{children}</>;
 };
