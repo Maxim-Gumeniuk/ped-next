@@ -28,6 +28,13 @@ const validationSchema = Yup.object({
 export default function Page() {
     const [isLoading, setLoading] = useState<boolean>(false);
     const router = useRouter();
+    const [showPassword, setShowPassword] = useState(false);
+
+    const handleShowPassword = () => {
+        setShowPassword((prev) => {
+            return !prev;
+        });
+    };
 
     const formik = useFormik({
         initialValues,
@@ -69,7 +76,8 @@ export default function Page() {
                 touched: touched.email,
             },
             {
-                type: "password",
+                type: showPassword ? "text" : "password",
+                password: true,
                 placeholder: "PASSWORD",
                 ...getFieldProps("password"),
                 errors: errors.password,
@@ -81,6 +89,7 @@ export default function Page() {
         errors.name,
         errors.password,
         getFieldProps,
+        showPassword,
         touched.email,
         touched.name,
         touched.password,
@@ -90,6 +99,7 @@ export default function Page() {
             inputArray={inputArray}
             onSubmit={formik.submitForm}
             isLoading={isLoading}
+            handleShowPassword={handleShowPassword}
         />
     );
 }

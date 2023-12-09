@@ -1,7 +1,7 @@
 "use client";
 
+import { mainContext } from "@/context/main";
 import { useContext } from "react";
-import { mainContext } from "./providers/main";
 
 export default function Home() {
     const context = useContext(mainContext);

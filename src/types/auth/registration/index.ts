@@ -3,6 +3,7 @@ export interface IinputArray {
     onChange: (e: React.ChangeEvent<unknown>) => void; 
     placeholder: string;
     type: string;
+    password?: boolean;
     name: string;
     handleBlur?: (e: unknown) => void
     value: string;
