@@ -1,21 +1,22 @@
+'use server'
+
 import axios from 'axios';
 
 import { ENDPOINTS } from '@/types/api/endpoints';
 import { APISTATUSES } from '@/types/api/statuses';
+import { cookies } from 'next/headers';
 
-export const appFetchingInstance = axios.create({
+
+export const serverSideAxiosInstance = axios.create({
     baseURL: process.env.SERVER_URL!,
     withCredentials: true
 });
 
+serverSideAxiosInstance.interceptors.request.use(async (config) => {
+    const cookieParser =  cookies();
+    const accessToken = cookieParser.get('accesToken')
 
-appFetchingInstance.interceptors.request.use(async (config) => {
-
-    if (typeof window !== 'undefined') {
-        const token = localStorage.getItem('accessToken');
-
-        config.headers['Authorization'] = `Bearer ${token}`;
-    }
+    config.headers['Authorization'] = `Bearer ${accessToken?.value}`;
 
     return config;
 }, (error) => {
@@ -23,7 +24,8 @@ appFetchingInstance.interceptors.request.use(async (config) => {
     return Promise.reject(error);
 });
 
-appFetchingInstance.interceptors.response.use(
+
+serverSideAxiosInstance.interceptors.response.use(
     (response) => {
         return response;
     },
@@ -31,7 +33,7 @@ appFetchingInstance.interceptors.response.use(
 
         if (error.response && error.response.status === APISTATUSES.UNAUTHORIZED) {
 
-        const response = await appFetchingInstance.post(ENDPOINTS.REFRESH);
+        const response = await serverSideAxiosInstance.post(ENDPOINTS.REFRESH);
 
         if(!response.data) {
             console.error('Unauthorized access. Redirecting to login.');
