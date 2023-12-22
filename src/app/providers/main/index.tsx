@@ -16,8 +16,6 @@ export function Providers({ children }: Props) {
         }
     }, []);
 
-    console.log(user);
-
     return (
         <mainContext.Provider value={{ user }}>
             <SnackbarProvider autoHideDuration={1500}>
