@@ -3,7 +3,7 @@ import { serverSideAxiosInstance } from "../serverSideAxiosInstance";
 
 const getAllProducts = async () => {
     try{
-        const products = await serverSideAxiosInstance.post(ENDPOINTS.ALLPRODUCTS);
+        const products = await serverSideAxiosInstance.get(ENDPOINTS.ALLPRODUCTS);
 
         const { data } = products;
 
